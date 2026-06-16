@@ -42,8 +42,7 @@ class Nornicdb < Formula
     working_dir var/"nornicdb"
     log_path var/"log/nornicdb/nornicdb.log"
     error_log_path var/"log/nornicdb/nornicdb.err.log"
-    environment_variables NORNICDB_HEADLESS:   "true",
-                          NORNICDB_MODELS_DIR: (var/"nornicdb/models").to_s
+    environment_variables NORNICDB_MODELS_DIR: (var/"nornicdb/models").to_s
   end
 
   def caveats
@@ -63,6 +62,9 @@ class Nornicdb < Formula
 
       Start NornicDB as a service:
         brew services start nornicdb
+
+      Open the web UI:
+        http://localhost:7474
     EOS
   end
 
