@@ -49,9 +49,11 @@ jobs:
             sha256s_url="https://github.com/${repo}/releases/download/${tag}/SHA256SUMS"
           fi
 
-          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
-          echo "repo=${repo}" >> "$GITHUB_OUTPUT"
-          echo "sha256s_url=${sha256s_url}" >> "$GITHUB_OUTPUT"
+          {
+            echo "tag=${tag}"
+            echo "repo=${repo}"
+            echo "sha256s_url=${sha256s_url}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Check out tap
         uses: actions/checkout@v4
