@@ -1,0 +1,78 @@
+name: Update Formula
+
+on:
+  repository_dispatch:
+    types:
+      - nornicdb-release
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "NornicDB release tag, e.g. v1.1.6"
+        required: true
+        type: string
+      repository:
+        description: "Source repository"
+        required: false
+        default: "orneryd/NornicDB"
+        type: string
+      sha256s_url:
+        description: "Override SHA256SUMS URL"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve release metadata
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            tag="${{ github.event.client_payload.tag }}"
+            repo="${{ github.event.client_payload.repository }}"
+            sha256s_url="${{ github.event.client_payload.sha256s_url }}"
+          else
+            tag="${{ inputs.tag }}"
+            repo="${{ inputs.repository }}"
+            sha256s_url="${{ inputs.sha256s_url }}"
+          fi
+
+          if [ -z "$repo" ]; then
+            repo="orneryd/NornicDB"
+          fi
+          if [ -z "$sha256s_url" ]; then
+            sha256s_url="https://github.com/${repo}/releases/download/${tag}/SHA256SUMS"
+          fi
+
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "repo=${repo}" >> "$GITHUB_OUTPUT"
+          echo "sha256s_url=${sha256s_url}" >> "$GITHUB_OUTPUT"
+
+      - name: Check out tap
+        uses: actions/checkout@v4
+
+      - name: Download release checksums
+        run: curl -fL "${{ steps.meta.outputs.sha256s_url }}" -o SHA256SUMS
+
+      - name: Update formula
+        run: ./scripts/update-formula.sh "${{ steps.meta.outputs.tag }}" SHA256SUMS
+
+      - name: Remove downloaded checksum file
+        run: rm -f SHA256SUMS
+
+      - name: Open formula update PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: "release/${{ steps.meta.outputs.tag }}"
+          title: "Update NornicDB to ${{ steps.meta.outputs.tag }}"
+          commit-message: "Update NornicDB formula to ${{ steps.meta.outputs.tag }}"
+          body: |
+            Updates the NornicDB formula for `${{ steps.meta.outputs.tag }}`.
+
+            Source release: https://github.com/${{ steps.meta.outputs.repo }}/releases/tag/${{ steps.meta.outputs.tag }}
+          labels: release, automated
