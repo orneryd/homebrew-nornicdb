@@ -71,6 +71,17 @@ Tagged NornicDB releases are expected to publish:
 - `nornicdb-darwin-amd64.tar.gz`
 - `SHA256SUMS`
 
+The main NornicDB repository's `release-macos.yml` workflow can notify this
+tap after a release publishes those assets. Configure these in the main repo:
+
+- Repository variable: `HOMEBREW_TAP_REPOSITORY=orneryd/homebrew-nornicdb`
+- Repository secret: `HOMEBREW_TAP_TOKEN` with permission to dispatch workflows
+  in the tap repository
+
+This tap handles the `nornicdb-release` repository dispatch in
+`.github/workflows/update-formula.yml`, downloads `SHA256SUMS`, updates the
+formula, and opens a pull request.
+
 Update the formula after a release:
 
 ```bash
