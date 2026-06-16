@@ -10,12 +10,12 @@ class Nornicdb < Formula
   on_macos do
     on_arm do
       url "https://github.com/orneryd/NornicDB/releases/download/v#{version}/nornicdb-darwin-arm64.tar.gz"
-      sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+      sha256 "fe6ed02dc6e58086df78327a8f53968733a3644d4be4757c720b9b774a27e932"
     end
 
     on_intel do
       url "https://github.com/orneryd/NornicDB/releases/download/v#{version}/nornicdb-darwin-amd64.tar.gz"
-      sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+      sha256 "1816f30870446dec221e569ddeab0f57ecadc70a2533227dde8de0942f106246"
     end
   end
 
