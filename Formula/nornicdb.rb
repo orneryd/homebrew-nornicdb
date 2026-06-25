@@ -5,8 +5,8 @@ class Nornicdb < Formula
   desc "Graph, vector, and historical truth in one database"
   homepage "https://github.com/orneryd/NornicDB"
   url "https://github.com/orneryd/NornicDB/releases/download/v#{version}/nornicdb-darwin-arm64.tar.gz"
-  version "1.1.7"
-  sha256 "a254a0c5a1148df0fd4341d58a008c3a43e0ca3508b1e3218e4e678b64058b15"
+  version "1.1.8"
+  sha256 "819bc89d9807513e486523f09ae462cb9ae4e9aa28cc2dd1c2f6fd47e67c7681"
   license "MIT"
 
   depends_on :macos
@@ -14,12 +14,12 @@ class Nornicdb < Formula
   on_macos do
     on_arm do
       url "https://github.com/orneryd/NornicDB/releases/download/v#{version}/nornicdb-darwin-arm64.tar.gz"
-      sha256 "a254a0c5a1148df0fd4341d58a008c3a43e0ca3508b1e3218e4e678b64058b15"
+      sha256 "819bc89d9807513e486523f09ae462cb9ae4e9aa28cc2dd1c2f6fd47e67c7681"
     end
 
     on_intel do
       url "https://github.com/orneryd/NornicDB/releases/download/v#{version}/nornicdb-darwin-amd64.tar.gz"
-      sha256 "aeb20de2427dca75367d05633940335ce6540b3531f50b33ed0807b43bd9dcf8"
+      sha256 "b6df7b011ebe1c012c5bf007f4e2039c6a6a857751e01b57bea55c5751d3408c"
     end
   end
 
