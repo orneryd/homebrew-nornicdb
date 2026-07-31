@@ -10,8 +10,13 @@ fi
 
 tag="$1"
 sums_file="$2"
-version="${tag#v}"
 formula="Formula/nornicdb.rb"
+
+if [[ ! "${tag}" =~ ^v[0-9]+(\.[0-9]+)+([._-][0-9A-Za-z._-]+)?$ ]]
+then
+  echo "invalid release tag: ${tag}" >&2
+  exit 2
+fi
 
 if [[ ! -f "${sums_file}" ]]
 then
@@ -36,11 +41,11 @@ fi
 
 tmp="$(mktemp)"
 awk \
-  -v version="${version}" \
+  -v tag="${tag}" \
   -v arm="${darwin_arm64_sha}" \
   -v amd="${darwin_amd64_sha}" '
-    /version "/ {
-      sub(/version "[^"]+"/, "version \"" version "\"")
+    /github\.com\/orneryd\/NornicDB\/releases\/download\// {
+      sub(/releases\/download\/[^\/]+\//, "releases/download/" tag "/")
     }
     /sha256 "/ && in_arm == 0 && in_amd == 0 && updated_default == 0 {
       sub(/sha256 "[^"]+"/, "sha256 \"" arm "\"")
