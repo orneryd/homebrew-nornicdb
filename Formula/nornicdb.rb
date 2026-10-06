@@ -4,21 +4,21 @@ require "yaml"
 class Nornicdb < Formula
   desc "Graph, vector, and historical truth in one database"
   homepage "https://github.com/orneryd/NornicDB"
-  url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0-preview-1/nornicdb-darwin-arm64.tar.gz"
-  sha256 "23693b3d0a99047355e68bec260c61df9842f5745faa32f3501f3873610541ad"
+  url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0/nornicdb-darwin-arm64.tar.gz"
+  sha256 "d4f76361bd5cfa706fcfdc3b09815033e4d40f07d8c20efff5d0835e0e752d38"
   license "MIT"
 
   depends_on :macos
 
   on_macos do
     on_arm do
-      url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0-preview-1/nornicdb-darwin-arm64.tar.gz"
-      sha256 "23693b3d0a99047355e68bec260c61df9842f5745faa32f3501f3873610541ad"
+      url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0/nornicdb-darwin-arm64.tar.gz"
+      sha256 "d4f76361bd5cfa706fcfdc3b09815033e4d40f07d8c20efff5d0835e0e752d38"
     end
 
     on_intel do
-      url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0-preview-1/nornicdb-darwin-amd64.tar.gz"
-      sha256 "d80a9337c5d4966cb339ccefcb1bd57b4aee07908e565a2f79826a74f92e12e1"
+      url "https://github.com/orneryd/NornicDB/releases/download/v1.4.0/nornicdb-darwin-amd64.tar.gz"
+      sha256 "3fcee243b06ce4201ecbf149a948547565314c433691729cfd239081eafe5086"
     end
   end
 
